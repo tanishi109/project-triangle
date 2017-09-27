@@ -4,7 +4,6 @@ export default class App extends React.Component<{}, {}> {
   public render(): JSX.Element {
     return (
       <div>
-        hello
         {this.props.children}
       </div>
     );
