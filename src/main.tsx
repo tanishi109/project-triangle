@@ -1,4 +1,3 @@
-// import Route from "components/route";
 import {createElement} from "react";
 import {render} from "react-dom";
 import Routes from "components/routes";

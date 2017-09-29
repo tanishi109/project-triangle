@@ -9,7 +9,7 @@ export default class World extends React.Component<{}, {}> {
     );
   }
 
-  private componentDidMount() {
+  public componentDidMount() {
     const ctx = this.canvas.getContext("2d");
 
     ctx.rect(10, 10, 100, 100);
