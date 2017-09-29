@@ -10,6 +10,6 @@ export interface DispatchToProps {
 }
 
 export interface Props extends React.Component {
-  command?: any;
+  currentCommand: Commands;
   setCurrentStrokes?: (commands: Commands[], playerId: IPlayer["id"]) => void;
 }

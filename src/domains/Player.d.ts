@@ -1,3 +1,6 @@
+import {Commands} from "./Command";
+
 export interface IPlayer {
-  id: number;
+  id?: number;
+  currentStrokes?: Commands[];
 }
