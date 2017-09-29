@@ -1,14 +1,20 @@
 import * as React from "react";
-import {Observable, Subject} from 'rxjs/Rx';
+import {Observable, Subject} from "rxjs/Rx";
 
+// components
 import World from "./World";
 
-import contain from "./contain";
-@contain
-export default class Game extends React.Component<{}, {}> {
-  keyEvents = new Subject();
+// domain
+import GamepadDomain from "domains/Gamepad";
 
-  public render(): JSX.Element {
+// types
+import {Props} from "./d";
+
+// self
+class Game extends React.Component<Props, {}> {
+  private keyEvents = new Subject();
+
+  public render(): false | JSX.Element {
     return (
       <div>
         hello game
@@ -18,6 +24,8 @@ export default class Game extends React.Component<{}, {}> {
   }
 
   public componentDidMount() {
+    const {setCurrentStrokes, currentCommand} = this.props;
+
     this.keyEvents
       .filter((keyCode: number) => {
         return [37, 38, 39, 40, 90].includes(keyCode);
@@ -25,10 +33,16 @@ export default class Game extends React.Component<{}, {}> {
       .timeout(100)
       .retry()
       .buffer(Observable.interval(100))
+      .filter((keyCodes: number[]) => keyCodes.length > 0)
       .map((keyCodes: number[]) => {
-        return keyCodes;
+        const strokes = keyCodes.map((c) => {
+          return GamepadDomain.getCommandFromKeyCode(c);
+        });
+
+        setCurrentStrokes(strokes, 1);
+
+        return currentCommand;
       }).subscribe((n) => {
-        console.log(n)
       })
 
     window.addEventListener("keydown", (e) => {
@@ -37,3 +51,7 @@ export default class Game extends React.Component<{}, {}> {
     });
   }
 }
+
+// wrap & export
+import contain from "./contain";
+export default contain(Game);
