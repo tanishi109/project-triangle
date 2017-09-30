@@ -2,14 +2,17 @@ import {Commands} from "domains/Command";
 import {IPlayer} from "domains/Player.d";
 
 export interface StateToProps {
-  currentCommand: Commands;
+  currentCommand: Commands | "";
 }
 
 export interface DispatchToProps {
+  initPlayer: (id: number) => void;
   setCurrentStrokes: (commands: Commands[], playerId: IPlayer["id"]) => void;
 }
 
 export interface Props extends React.Component {
   currentCommand: Commands;
-  setCurrentStrokes?: (commands: Commands[], playerId: IPlayer["id"]) => void;
+
+  initPlayer: (id: number) => void;
+  setCurrentStrokes: (commands: Commands[], playerId: IPlayer["id"]) => void;
 }

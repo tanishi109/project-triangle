@@ -24,7 +24,10 @@ class Game extends React.Component<Props, {}> {
   }
 
   public componentDidMount() {
-    const {setCurrentStrokes, currentCommand} = this.props;
+    const {initPlayer, setCurrentStrokes} = this.props;
+    const playerId = 1;
+
+    initPlayer(playerId);
 
     this.keyEvents
       .filter((keyCode: number) => {
@@ -39,10 +42,11 @@ class Game extends React.Component<Props, {}> {
           return GamepadDomain.getCommandFromKeyCode(c);
         });
 
-        setCurrentStrokes(strokes, 1);
+        setCurrentStrokes(strokes, playerId);
 
-        return currentCommand;
+        return this.props.currentCommand;
       }).subscribe((n) => {
+        console.log(n)
       })
 
     window.addEventListener("keydown", (e) => {
