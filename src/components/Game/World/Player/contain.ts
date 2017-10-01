@@ -13,7 +13,6 @@ import {selectCurrentMove} from "selectors/player";
 
 const mapStateToProps = (state) => {
   const currentMove = selectCurrentMove(state);
-  console.log(": ", currentMove)
   const props: StateToProps = {
     currentMove,
   };
