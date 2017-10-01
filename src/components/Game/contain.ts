@@ -28,11 +28,9 @@ const mapDispatchToProps = (dispatch) => {
       }));
       dispatch(playerSelectionActions.select(id));
     },
-    setCurrentStrokes(commands, playerId) {
+    updatePlayer(params, playerId) {
       dispatch(playerActions.upsert({
-        [playerId]: {
-          currentStrokes: commands,
-        },
+        [playerId]: params,
       }));
     },
   };

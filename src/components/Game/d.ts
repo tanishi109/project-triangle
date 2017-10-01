@@ -7,12 +7,12 @@ export interface StateToProps {
 
 export interface DispatchToProps {
   initPlayer: (id: number) => void;
-  setCurrentStrokes: (commands: Commands[], playerId: IPlayer["id"]) => void;
+  updatePlayer: (params: IPlayer, playerId: IPlayer["id"]) => void;
 }
 
 export interface Props extends React.Component {
   currentCommand: Commands;
 
   initPlayer: (id: number) => void;
-  setCurrentStrokes: (commands: Commands[], playerId: IPlayer["id"]) => void;
+  updatePlayer: (params: IPlayer, playerId: IPlayer["id"]) => void;
 }
