@@ -36,3 +36,13 @@ export const selectCurrentCommand = createSelector(
     return player ? player.getCurrentCommands() : "";
   },
 );
+
+export const selectCurrentMove = createSelector(
+  selectMap,
+  getFirstId,
+  (map, id) => {
+    const player = map[id];
+
+    return player ? player.getCurrentMove() : "";
+  },
+);

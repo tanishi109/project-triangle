@@ -1,11 +1,17 @@
 import * as React from "react";
 
+import Player from "./Player";
+
 export default class World extends React.Component<{}, {}> {
   private canvas: HTMLCanvasElement | null;
 
   public render(): JSX.Element {
     return (
-      <canvas ref={(elm) => this.canvas = elm} />
+      <div style={{position: "relative"}}>
+        <canvas ref={(elm) => this.canvas = elm}>
+        </canvas>
+        <Player />
+      </div>
     );
   }
 

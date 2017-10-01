@@ -65,7 +65,7 @@ class Game extends React.Component<Props, {}> {
       .timeout(1000) // TODO: 20f
       .retry()
       .subscribe((commands: Commands[]) => {
-        updatePlayer({commandsLog: commands}, playerId);
+        updatePlayer({commandsStream: commands}, playerId);
         // if (playerApp.isEq(this.player, commands) && this.isGameBegin) {
         //   this.animate();
         //   playerApp.doneTask(this.player);
