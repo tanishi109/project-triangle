@@ -1,6 +1,20 @@
 import * as React from "react";
 
-import Player from "./Player";
+import {Socket} from "phoenix";
+
+const socket = new Socket("ws://0.0.0.0:4000/socket", {
+  params: {},
+});
+
+socket.connect();
+
+const channel = socket.channel("room:lobby", {});
+
+channel.join()
+  .receive("ok", resp => { console.log("Joined successfully", resp) })
+  .receive("error", resp => { console.log("Unable to join", resp) })
+
+channel.push("new_msg", {body: "***hogehoge"});
 
 export default class World extends React.Component<{}, {}> {
   private canvas: HTMLCanvasElement | null;
@@ -10,7 +24,6 @@ export default class World extends React.Component<{}, {}> {
       <div style={{position: "relative"}}>
         <canvas ref={(elm) => this.canvas = elm}>
         </canvas>
-        <Player />
       </div>
     );
   }
