@@ -1,17 +1,15 @@
 import {connect} from "react-redux";
 import {compose} from "redux";
+import {setScene} from "actions/views/world";
 
 import {
   StateToProps,
   DispatchToProps,
 } from "./d";
 
-import {selectCurrentMove} from "selectors/player";
-
 const mapStateToProps = (state) => {
-  const currentMove = selectCurrentMove(state);
   const props: StateToProps = {
-    currentMove,
+    scene: state.views.world.scene,
   };
 
   return props;
@@ -19,6 +17,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   const props: DispatchToProps = {
+    setScene(scene) {
+      dispatch(setScene(scene));
+    },
   };
   return props;
 };

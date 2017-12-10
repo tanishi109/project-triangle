@@ -1,24 +1,41 @@
 import * as React from "react";
+import {Props} from "./d";
+
 import ModeSelect from "./ModeSelect";
-import OnlineLobby from "./OnlineLobby";
 
-export default class World extends React.Component<{}, {}> {
-  private canvas: HTMLCanvasElement | null;
-
+export class World extends React.Component<Props, {}> {
   public render(): JSX.Element {
-    return this.renderByState();
+    return this.renderScene();
   }
 
-  private renderByState() {
-    const states = [ModeSelect, OnlineLobby];
-    const currentState = states[0];
+  public createScene(scene) {
+    const {setScene} = this.props;
+    const sceneProps = {
+      scene: {
+        set: setScene,
+      },
+    };
+
+    return React.createElement(scene, sceneProps);
+  }
+
+  private renderScene() {
+    // const states = [ModeSelect, OnlineLobby];
+    // const currentState = states[0];
+    const {scene} = this.props;
+
+    // TODO: FIXME
+    // sceneをconst にしないか、sceneを即時関数で決める
+    if (scene === null) {
+      return this.createScene(ModeSelect);
+    }
 
     // TODO: change state
     // mode select
     // local match room
     // online lobby
     // online match room
-    return React.createElement(currentState);
+    return this.createScene(scene);
   }
 }
 
@@ -59,3 +76,7 @@ channel.join()
   .receive("error", resp => { console.log("Unable to join", resp) })
 
 channel.push("new_msg", {body: "***hogehoge"});
+
+// wrap & export
+import contain from "./contain";
+export default contain(World);

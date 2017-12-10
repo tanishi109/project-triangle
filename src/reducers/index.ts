@@ -1,15 +1,11 @@
 import {routerReducer} from "react-router-redux";
 import {combineReducers} from "redux";
 
-import command from "./command";
-import player from "./entities/player";
-import selection from "./selection";
+import views from "./views";
 
 const reducers = combineReducers({
   router: routerReducer,
-  command,
-  player,
-  selections: selection,
+  views,
 });
 
 export default reducers;

@@ -6,6 +6,7 @@ export default class OnlineLobby extends React.Component<{}, {}> {
   public render(): JSX.Element {
     return (
       <div style={{position: "relative"}}>
+        ここはロビーだよ
         <canvas ref={(elm) => this.canvas = elm}>
         </canvas>
       </div>

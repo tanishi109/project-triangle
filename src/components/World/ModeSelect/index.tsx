@@ -1,21 +1,31 @@
 import * as React from "react";
+import OnlineLobby from "../OnlineLobby";
 
-export default class ModeSelect extends React.Component<{}, {}> {
+interface Props {
+  scene: {
+    set: (scene: () => JSX.Element) => void;
+  };
+}
+
+export default class ModeSelect extends React.Component<Props, {}> {
   private canvas: HTMLCanvasElement | null;
 
   public render(): JSX.Element {
+    const {scene} = this.props;
+
     return (
-      <div style={{position: "relative"}}>
-        <canvas ref={(elm) => this.canvas = elm}>
-        </canvas>
+      <div>
+        <ul>
+          <li onClick={() => {
+            scene.set(() => (React.createElement(OnlineLobby, this.props)));
+          }}>
+            online match
+          </li>
+          <li>
+            local match
+          </li>
+        </ul>
       </div>
     );
-  }
-
-  public componentDidMount() {
-    const ctx = this.canvas.getContext("2d");
-
-    ctx.rect(10, 10, 100, 100);
-    ctx.stroke();
   }
 }

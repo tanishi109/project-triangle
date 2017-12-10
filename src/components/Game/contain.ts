@@ -1,7 +1,5 @@
 import {connect} from "react-redux";
 import {compose} from "redux";
-import commandActions from "actions/command";
-import playerActions from "actions/entities/player";
 import {playerSelectionActions} from "actions/selection";
 
 import {
@@ -9,12 +7,8 @@ import {
   DispatchToProps,
 } from "./d";
 
-import {selectCurrentCommand} from "selectors/player";
-
 const mapStateToProps = (state) => {
-  const currentCommand = selectCurrentCommand(state);
   const props: StateToProps = {
-    currentCommand,
   };
 
   return props;
@@ -22,17 +16,17 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   const props: DispatchToProps = {
-    initPlayer(id) {
-      dispatch(playerActions.upsert({
-        [id]: {},
-      }));
-      dispatch(playerSelectionActions.select(id));
-    },
-    updatePlayer(params, playerId) {
-      dispatch(playerActions.upsert({
-        [playerId]: params,
-      }));
-    },
+    // initPlayer(id) {
+    //   dispatch(playerActions.upsert({
+    //     [id]: {},
+    //   }));
+    //   dispatch(playerSelectionActions.select(id));
+    // },
+    // updatePlayer(params, playerId) {
+    //   dispatch(playerActions.upsert({
+    //     [playerId]: params,
+    //   }));
+    // },
   };
   return props;
 };
