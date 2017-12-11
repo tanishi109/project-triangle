@@ -1,22 +1,29 @@
 import * as React from "react";
+import OnlineMatchRoom from "components/World/OnlineMatchRoom";
 
 export default class OnlineLobby extends React.Component<{}, {}> {
-  private canvas: HTMLCanvasElement | null;
+  constructor(props) {
+    super(props);
+
+    this.enterRoom = this.enterRoom.bind(this);
+  }
 
   public render(): JSX.Element {
     return (
       <div style={{position: "relative"}}>
         ここはロビーだよ
-        <canvas ref={(elm) => this.canvas = elm}>
-        </canvas>
+        <button
+          onClick={this.enterRoom}
+          >
+          参加！
+        </button>
       </div>
     );
   }
 
-  public componentDidMount() {
-    const ctx = this.canvas.getContext("2d");
+  private enterRoom() {
+    const {scene} = this.props;
 
-    ctx.rect(10, 10, 400, 400);
-    ctx.stroke();
+    scene.set(() => (React.createElement(OnlineMatchRoom, this.props)));
   }
 }
