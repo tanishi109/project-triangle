@@ -26,7 +26,7 @@ export class World extends React.Component<Props, {}> {
 
     // TODO: FIXME
     // sceneをconst にしないか、sceneを即時関数で決める
-    if (scene === null) {
+    if (scene.length === 0) {
       return this.createScene(ModeSelect);
     }
 
@@ -35,7 +35,7 @@ export class World extends React.Component<Props, {}> {
     // local match room
     // online lobby
     // online match room
-    return this.createScene(scene);
+    return this.createScene(scene[0]);
   }
 }
 

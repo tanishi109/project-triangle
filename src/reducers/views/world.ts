@@ -6,9 +6,12 @@ import {handleActions} from "redux-actions";
 
 const scene = handleActions({
   [setScene.toString()]: (state, action) => {
-    return action.payload;
+    return [
+      action.payload,
+      ...state,
+    ];
   },
-}, null);
+}, []);
 
 export default combineReducers({
   scene,
