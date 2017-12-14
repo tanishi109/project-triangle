@@ -1,12 +1,12 @@
 import * as React from "react";
 
-export default class OnlineMatchRoom extends React.Component<{}, {}> {
+export default class OnlineBattleRoom extends React.Component<{}, {}> {
   private canvas: HTMLCanvasElement | null;
 
   public render(): JSX.Element {
     return (
       <div style={{position: "relative"}}>
-        ここはオンラインマッチルーム
+        ここはオンラインバトルルーム
         <canvas ref={(elm) => this.canvas = elm}>
         </canvas>
       </div>

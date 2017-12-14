@@ -1,5 +1,5 @@
 import * as React from "react";
-import OnlineMatchRoom from "components/World/OnlineMatchRoom";
+import OnlineBattleRoom from "components/World/OnlineBattleRoom";
 import {Socket} from "phoenix";
 
 export default class OnlineLobby extends React.Component<{}, {}> {
@@ -56,7 +56,7 @@ export default class OnlineLobby extends React.Component<{}, {}> {
     this.channel.leave()
       .receive("ok", () => {
         // 画面遷移をdispatch
-        scene.set(() => (React.createElement(OnlineMatchRoom, this.props)));
+        scene.set(() => (React.createElement(OnlineBattleRoom, this.props)));
         // TODO: 以下はBattleRoomでやる
         // const roomChannel = socket.channel(`room:${key}`, {id});
         // roomChannel.join()
