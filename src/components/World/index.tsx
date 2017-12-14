@@ -60,22 +60,6 @@ export class World extends React.Component<Props, {}> {
 // }
 
 
-// web socket example
-import {Socket} from "phoenix";
-
-const socket = new Socket("ws://0.0.0.0:4000/socket", {
-  params: {},
-});
-
-socket.connect();
-
-const channel = socket.channel("room:lobby", {});
-
-channel.join()
-  .receive("ok", resp => { console.log("Joined successfully", resp) })
-  .receive("error", resp => { console.log("Unable to join", resp) })
-
-channel.push("new_msg", {body: "***hogehoge"});
 
 // wrap & export
 import contain from "./contain";
