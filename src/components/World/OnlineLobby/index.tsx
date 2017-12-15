@@ -56,12 +56,10 @@ export default class OnlineLobby extends React.Component<{}, {}> {
     this.channel.leave()
       .receive("ok", () => {
         // 画面遷移をdispatch
-        scene.set(() => (React.createElement(OnlineBattleRoom, this.props)));
-        // TODO: 以下はBattleRoomでやる
-        // const roomChannel = socket.channel(`room:${key}`, {id});
-        // roomChannel.join()
-        //   .receive("ok", resp => { console.log("Room successfully", resp) })
-        //   .receive("error", resp => { console.log("Unable to Room", resp) })
+        scene.set(() => (React.createElement(OnlineBattleRoom, {
+          ...this.props,
+          roomId,
+        })));
       })
       .receive("error", () => {
         if (retryCount > 10) {

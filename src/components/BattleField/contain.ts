@@ -1,5 +1,6 @@
 import {connect} from "react-redux";
 import {compose} from "redux";
+import {playerSelectionActions} from "actions/selection";
 
 import {
   StateToProps,
@@ -15,6 +16,17 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   const props: DispatchToProps = {
+    // initPlayer(id) {
+    //   dispatch(playerActions.upsert({
+    //     [id]: {},
+    //   }));
+    //   dispatch(playerSelectionActions.select(id));
+    // },
+    // updatePlayer(params, playerId) {
+    //   dispatch(playerActions.upsert({
+    //     [playerId]: params,
+    //   }));
+    // },
   };
   return props;
 };

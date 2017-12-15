@@ -1,7 +1,8 @@
 import * as React from "react";
 import {Props} from "./d";
 
-import ModeSelect from "./ModeSelect";
+// import ModeSelect from "./ModeSelect";
+import OnlineBattleRoom from "./OnlineBattleRoom";
 
 export class World extends React.Component<Props, {}> {
   public render(): JSX.Element {
@@ -20,14 +21,12 @@ export class World extends React.Component<Props, {}> {
   }
 
   private renderScene() {
-    // const states = [ModeSelect, OnlineLobby];
-    // const currentState = states[0];
     const {scene} = this.props;
 
     // TODO: FIXME
     // sceneをconst にしないか、sceneを即時関数で決める
     if (scene.length === 0) {
-      return this.createScene(ModeSelect);
+      return this.createScene(OnlineBattleRoom);
     }
 
     // TODO: change state
