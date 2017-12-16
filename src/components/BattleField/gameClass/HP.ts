@@ -1,4 +1,4 @@
-class Hp {
+export default class HP {
   constructor(hand) {
     this.hand = hand;
   }

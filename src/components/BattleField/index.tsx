@@ -3,6 +3,7 @@ import {Socket} from "phoenix";
 // game classes
 import Stage from "./gameClass/Stage";
 import Hand from "./gameClass/Hand/Hand";
+import HP from "./gameClass/HP";
 import Judge from "./gameClass/Judge";
 import inputHandler from "./gameClass/inputHandler";
 // types
@@ -17,6 +18,10 @@ class BattleField extends React.Component<Props, {}> {
     return (
       <div
         id="wrapper"
+        style={{
+          height: "500px",
+          width: "500px",
+        }}
         >
         <canvas
           id="field"
@@ -34,7 +39,6 @@ class BattleField extends React.Component<Props, {}> {
     socket.connect();
     const id = location.href.split("?")[1];
     const {roomKey} = this.props;
-    console.log("roomKey = ", roomKey)
     this.channel = socket.channel(`room:${roomKey}`, {id});
     this.channel.join()
       .receive("ok", resp => { console.log("Room successfully", resp) })
@@ -46,7 +50,6 @@ class BattleField extends React.Component<Props, {}> {
     updateStage(stage);
 
     this.channel.on("tick", (msg) => {
-      console.log("tick", msg);
       const {id, key_map: keyMap} = msg;
       if (id !== location.href.split("?")[1]) {
         Object.keys(keyMap).forEach((k) => {
@@ -94,7 +97,9 @@ const initStage = () => {
   const hand1 = new Hand(80, 80, ["a", "s", "d"]);
   const hand2 = new Hand(300, 80, ["va", "vs", "vd"]); // virtual key
   const judge = new Judge([hand1, hand2]);
-  stage.entities = [hand1, hand2, judge];
+  const hp1 = new HP(hand1);
+  const hp2 = new HP(hand2);
+  stage.entities = [hand1, hand2, judge, hp1, hp2];
 
   return stage;
 };
