@@ -1,5 +1,6 @@
 import * as React from "react";
 import OnlineBattleRoom from "components/World/OnlineBattleRoom";
+import {endpoint} from "constants/config";
 import {Socket} from "phoenix";
 
 export default class OnlineLobby extends React.Component<{}, {}> {
@@ -13,7 +14,7 @@ export default class OnlineLobby extends React.Component<{}, {}> {
 
   public componentWillMount() {
     // init socket
-    const socket = new Socket("ws://0.0.0.0:4000/socket", {
+    const socket = new Socket(`ws://${endpoint}/socket`, {
       params: {},
     });
     socket.connect();

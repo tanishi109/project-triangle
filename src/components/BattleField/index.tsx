@@ -1,5 +1,6 @@
 import * as React from "react";
 import {Socket} from "phoenix";
+import {endpoint} from "constants/config";
 // game classes
 import Stage from "./gameClass/Stage";
 import Hand from "./gameClass/Hand/Hand";
@@ -33,7 +34,7 @@ class BattleField extends React.Component<Props, {}> {
   }
 
   public componentWillMount() {
-    const socket = new Socket("ws://0.0.0.0:4000/socket", {
+    const socket = new Socket(`ws://${endpoint}/socket`, {
       params: {},
     });
     socket.connect();
