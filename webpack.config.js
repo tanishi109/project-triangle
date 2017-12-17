@@ -30,7 +30,10 @@ const mainConfig = {
 
 const webpackMerge = require("webpack-merge");
 const envConfig = (() => {
-  return require("./webpack.local.config.js");
+  if (process.env.NODE_ENV !== "production") {
+    return require("./webpack.local.config.js");
+  }
+  return require("./webpack.production.config.js");
 })();
 
 module.exports = webpackMerge(mainConfig, envConfig);

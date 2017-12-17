@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "cp ./src/index.html ./dist/index.html && node server"
+    "start": "cp ./src/index.html ./dist/index.html && node server",
+    "build": "export NODE_ENV='production' && webpack --config webpack.config.js"
   },
   "repository": {
     "type": "git",

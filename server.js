@@ -1,22 +1,26 @@
 require("babel-register");
 
 const path = require("path");
-const webpackDevMiddleware = require("webpack-dev-middleware");
-const webpack = require("webpack");
-const config = require("./webpack.config");
 const express = require("express");
 const app = new (express)();
 const port = process.env.PORT || 3000;
 
 const router = express.Router();
+if (process.env.NODE_ENV !== "production") {
+  const webpackDevMiddleware = require("webpack-dev-middleware");
+  const webpack = require("webpack");
+  const config = require("./webpack.config");
+
+  const compiler = webpack(config);
+  app.use(webpackDevMiddleware(compiler, { noInfo: true, publicPath: config.output.publicPath }));
+}
 
 router.get("/bundle.js", (req, res) => {
   res.sendFile(path.join(__dirname, "dist/bundle.js"));
 });
-
-const compiler = webpack(config);
-
-app.use(webpackDevMiddleware(compiler, { noInfo: true, publicPath: config.output.publicPath }));
+router.get("/dist/bundle.js", (req, res) => {
+  res.sendFile(path.join(__dirname, "dist/bundle.js"));
+});
 
 app.use("/", router);
 
