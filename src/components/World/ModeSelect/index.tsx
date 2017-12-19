@@ -18,9 +18,16 @@ export default class ModeSelect extends React.Component<Props, {}> {
       <div>
         <h1>ゲームモード選択</h1>
         <ul>
-          <li onClick={() => {
-            scene.set(() => (React.createElement(OnlineLobby, this.props)));
-          }}>
+          <li
+            style={{
+              textDecoration: "underline",
+              color: "blue",
+              cursor: "pointer",
+            }}
+            onClick={() => {
+              scene.set(() => (React.createElement(OnlineLobby, this.props)));
+            }}
+            >
             オンライン対戦
           </li>
           {/* <li>
