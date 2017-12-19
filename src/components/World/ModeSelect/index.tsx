@@ -1,5 +1,6 @@
 import * as React from "react";
 import OnlineLobby from "../OnlineLobby";
+import Rules from "./Rules";
 
 interface Props {
   scene: {
@@ -15,16 +16,23 @@ export default class ModeSelect extends React.Component<Props, {}> {
 
     return (
       <div>
+        <h1>ゲームモード選択</h1>
         <ul>
           <li onClick={() => {
             scene.set(() => (React.createElement(OnlineLobby, this.props)));
           }}>
-            online match
+            オンライン対戦
           </li>
-          <li>
-            local match (comming soon)
-          </li>
+          {/* <li>
+            <a
+            href="https://tanishi109.github.io/four-fingers/"
+            target="_blank"
+            >
+            ローカル対戦
+            </a>
+          </li> */}
         </ul>
+        <Rules />
       </div>
     );
   }
