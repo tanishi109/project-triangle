@@ -38,7 +38,7 @@ class BattleField extends React.Component<Props, {}> {
       params: {},
     });
     socket.connect();
-    const id = location.href.split("?")[1];
+    const id = localStorage.getItem("id");
     const {roomKey} = this.props;
     this.channel = socket.channel(`room:${roomKey}`, {id});
     this.channel.join()
@@ -50,9 +50,11 @@ class BattleField extends React.Component<Props, {}> {
     const stage = initStage();
     updateStage(stage);
 
+    const myId = localStorage.getItem("id");
+
     this.channel.on("tick", (msg) => {
       const {id, key_map: keyMap} = msg;
-      if (id !== location.href.split("?")[1]) {
+      if (id !== myId) {
         Object.keys(keyMap).forEach((k) => {
           const isKeyDown = keyMap[k];
           inputHandler.setMap(`v${k}`, isKeyDown);
@@ -67,7 +69,7 @@ class BattleField extends React.Component<Props, {}> {
         key_map: {
           [keyName]: true,
         },
-        id: location.href.split("?")[1],
+        id: myId,
       });
       inputHandler.setMap(keyName, true);
     });
@@ -78,7 +80,7 @@ class BattleField extends React.Component<Props, {}> {
         key_map: {
           [keyName]: false,
         },
-        id: location.href.split("?")[1],
+        id: myId,
       });
       inputHandler.setMap(keyName, false);
     });

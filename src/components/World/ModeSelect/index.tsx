@@ -22,7 +22,7 @@ export default class ModeSelect extends React.Component<Props, {}> {
             online match
           </li>
           <li>
-            local match
+            local match (comming soon)
           </li>
         </ul>
       </div>

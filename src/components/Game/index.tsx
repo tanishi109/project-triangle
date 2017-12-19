@@ -11,7 +11,6 @@ class Game extends React.Component<Props, {}> {
   public render(): false | JSX.Element {
     return (
       <div>
-        hello game
         <World />
       </div>
     );

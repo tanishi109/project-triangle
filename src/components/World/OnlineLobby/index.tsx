@@ -2,9 +2,11 @@ import * as React from "react";
 import OnlineBattleRoom from "components/World/OnlineBattleRoom";
 import {endpoint} from "constants/config";
 import {Socket} from "phoenix";
+import { replace } from "react-router-redux";
 
 export default class OnlineLobby extends React.Component<{}, {}> {
   channel: any;
+  socket: any;
 
   constructor(props) {
     super(props);
@@ -14,18 +16,36 @@ export default class OnlineLobby extends React.Component<{}, {}> {
 
   public componentWillMount() {
     // init socket
-    const socket = new Socket(`ws://${endpoint}/socket`, {
+    this.socket = new Socket(`ws://${endpoint}/socket`, {
       params: {},
     });
-    socket.connect();
+    this.socket.connect();
 
-    const id = location.href.split("?")[1];
-    this.channel = socket.channel(`lobby`, {id});
+    const id = localStorage.getItem("id") || null;
+    this.join(id);
+  }
 
+  public render(): JSX.Element {
+    return (
+      <div style={{position: "relative"}}>
+        対戦相手を探しています。
+      </div>
+    );
+  }
+
+  private join(id: string | null = null) {
+    const afterJoin = id === null ?
+    (reply) => {
+      localStorage.setItem("id", reply.id);
+      this.join(reply.id);
+    } :
+    (reply) => {
+      this.channel.push(`request_match`, {id});
+    };
+
+    this.channel = this.socket.channel(`lobby`, {id});
     this.channel.join()
-      .receive("ok", () => {
-        this.channel.push(`request_match`, { id });
-      })
+      .receive("ok", afterJoin)
       .receive("error", () => {
         alert("ロビーへの接続に失敗しました。");
       });
@@ -36,19 +56,6 @@ export default class OnlineLobby extends React.Component<{}, {}> {
         this.enterRoom(roomId);
       }
     });
-  }
-
-  public render(): JSX.Element {
-    return (
-      <div style={{position: "relative"}}>
-        ここはロビーだよ
-        <button
-          onClick={this.enterRoom}
-          >
-          参加！
-        </button>
-      </div>
-    );
   }
 
   private enterRoom(roomId, retryCount = 0) {
