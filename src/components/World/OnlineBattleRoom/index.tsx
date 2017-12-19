@@ -6,7 +6,9 @@ export default class OnlineBattleRoom extends React.Component<{}, {}> {
     return (
       <div style={{position: "relative"}}>
         ここはオンラインバトルルーム
-        <BattleField />
+        <BattleField
+          roomKey={this.props.roomKey}
+          />
       </div>
     );
   }

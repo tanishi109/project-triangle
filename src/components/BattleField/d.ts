@@ -5,4 +5,5 @@ export interface DispatchToProps {
 }
 
 export interface Props extends React.Component {
+  roomKey: string;
 }

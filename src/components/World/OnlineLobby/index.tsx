@@ -51,14 +51,14 @@ export default class OnlineLobby extends React.Component<{}, {}> {
       });
 
     this.channel.on("matched", (msg) => {
-      const roomId = msg.roomkey_map[id];
-      if (roomId) {
-        this.enterRoom(roomId);
+      const roomKey = msg.roomkey_map[id];
+      if (roomKey) {
+        this.enterRoom(roomKey);
       }
     });
   }
 
-  private enterRoom(roomId, retryCount = 0) {
+  private enterRoom(roomKey, retryCount = 0) {
     const {scene} = this.props;
 
     this.channel.leave()
@@ -66,14 +66,14 @@ export default class OnlineLobby extends React.Component<{}, {}> {
         // 画面遷移をdispatch
         scene.set(() => (React.createElement(OnlineBattleRoom, {
           ...this.props,
-          roomId,
+          roomKey,
         })));
       })
       .receive("error", () => {
         if (retryCount > 10) {
           return alert("ロビーからの離脱に失敗しました");
         }
-        this.enterRoom(roomId, retryCount++);
+        this.enterRoom(roomKey, retryCount++);
       });
   }
 }
